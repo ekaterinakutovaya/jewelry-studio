@@ -1,0 +1,27 @@
+@import "../../../styles/_vars.scss";
+@import '../../../styles/_mixins.scss';
+
+
+
+.tab {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.item {
+    font-weight: 400;
+    padding: 10px 20px;
+    margin-right: 5px;
+    border: $border;
+    border-bottom: none;
+    cursor: pointer;
+
+    @include for-desktop-only {
+        font-size: 1.4rem;
+    }
+}
+
+.activeTab {
+    background-color: $champagne;
+}

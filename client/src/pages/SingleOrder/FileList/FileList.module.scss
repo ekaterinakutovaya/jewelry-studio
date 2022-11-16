@@ -1,0 +1,53 @@
+@import "../../../styles/_vars.scss";
+@import "../../../styles/_mixins.scss";
+
+.table {
+
+    th {
+        text-align: left;
+        padding: 5px 5px 0 0;
+        
+    }
+
+    tbody td {
+        padding: 5px 10px 5px 0;
+        vertical-align: middle;
+        display:table-cell;
+    }
+}
+
+.file {
+    display: flex;
+    align-items: center;
+}
+
+.link {
+    padding-left: 25px;
+    position: relative;
+    font-size: 16px;
+    font-weight: 500;
+    opacity: 1;
+    transition: opacity .3s;
+    cursor: pointer;
+
+    &::before {
+        content: "\f019";
+        font-family: 'FontAwesome';
+        font-size: 18px;
+        font-weight: 400;
+        color: #65a838;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    &:hover {
+        opacity: 0.6;
+        transition: opacity .3s;
+    }
+
+}
+
+.minus {
+    color: #d64045;
+}

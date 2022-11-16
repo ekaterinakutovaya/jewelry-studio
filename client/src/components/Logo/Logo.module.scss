@@ -1,0 +1,72 @@
+@import "../../styles/_vars.scss";
+@import '../../styles/_mixins.scss';
+
+.logo {
+    display: flex;
+    align-items: center;
+
+    svg {
+        width: 6rem;
+        height: 6rem;
+        fill: white;
+        cursor: pointer;
+
+        @include for-phone-only {
+            width: 45px;
+            height: 45px;
+        }
+
+        @include for-tablet-portrait-up {
+            // width: 45px;
+            // height: 45px;
+        }
+
+        // @include for-tablet-portait-only {
+        //     width: 30px;
+        //     height: 30px;
+        // }
+
+        @include for-tablet-landscape-only {
+            // width: 35px;
+            // height: 35px;
+        }
+
+        @include for-desktop-only {
+            width: 45px;
+            height: 45px;
+        }
+
+
+    }
+}
+
+.titleWrapper {
+    text-align: center;
+}
+
+.title {
+    font-family: 'Dancing Script', cursive;
+    font-weight: 500;
+    font-size: 24px;
+    color: white;
+    padding-left: 1rem;
+    padding-right: 1rem;
+
+    @include for-phone-only {
+        display: none;
+    }
+
+    @include for-tablet-portait-only {
+        display: none;
+    }
+
+    @include for-tablet-portrait-up {}
+
+    @include for-tablet-landscape-only {
+        // font-size: 20px;
+    }
+
+    @include for-desktop-only {
+        font-size: 20px;
+    }
+}

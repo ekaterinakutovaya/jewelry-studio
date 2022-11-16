@@ -1,0 +1,67 @@
+@import "../../styles/_vars.scss";
+
+.formWrapper {
+    max-width: 360px;
+    // margin: 160px auto 200px auto;
+    margin: 0 auto 200px auto;
+    position: relative;
+    z-index: 1;
+
+    // margin-top: 30px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.form {
+    text-align: center;
+    padding: 20px 40px;
+    position: relative;
+    z-index: 1;
+}
+
+.input {
+    width: 100%;
+    outline: 0;
+    background: $white;
+    // border: 0;
+    margin: 0 0 2rem;
+    padding: 1.5rem;
+    box-sizing: border-box;
+
+    font-size: 1.6rem;
+    font-family: inherit;
+    font-weight: 300;
+    cursor: text;
+
+    &:focus {
+        border: $border-focus;
+    }
+}
+
+.danger {
+    border: 1px solid $danger;
+}
+
+.change {
+    margin-top: 2rem;
+
+    a {
+        color: $danger;
+    }
+}
+
+.error {
+    height: 2rem;
+    color: $danger;
+    padding: 4rem 4rem 1rem 4rem;
+    text-align: center;
+}
+
+.loginFail {
+    height: 2rem;
+    color: $danger;
+    padding: 4rem 4rem 4rem 4rem;
+    text-align: center;
+}

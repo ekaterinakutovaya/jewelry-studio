@@ -1,0 +1,32 @@
+:root {
+    --bg: #fff;
+    --primary-color: #eae1df;
+    --default-font-color: #212529;
+    --primary-font-color: #777777;
+    // --default-font-color: red;
+    --black-color: #030303;
+    --danger-color: #c43343;
+    --success-color: #65a838;
+
+    // --default-border: 1px solid #dddddd;
+    --default-border: 1px solid #dedede;
+    --default-border-focus: 1px solid #b9a493;
+
+    --sidebar-width: 200px;
+    --sidebar-width-laptop: 150px;
+}
+
+
+
+
+@import 'scss-reset/_reset.scss';
+
+@import 'mixins';
+
+@import "vars";
+
+@import "fonts";
+
+@import "global";
+
+@import "vendor/utilities";

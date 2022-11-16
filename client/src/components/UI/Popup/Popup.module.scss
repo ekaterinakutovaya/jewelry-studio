@@ -1,0 +1,27 @@
+@import "../../../styles/_vars.scss";
+@import '../../../styles/_mixins.scss';
+
+.popup {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 3000;
+    display: none;
+    background: rgba(0, 0, 0, 0.5);
+    animation-name: appear;
+    animation-duration: 300ms;
+}
+
+.popupContent {
+    padding: 25px;
+    background: white;
+    min-width: 250px;
+}
+
+.popup.active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

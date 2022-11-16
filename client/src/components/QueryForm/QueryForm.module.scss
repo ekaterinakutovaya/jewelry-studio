@@ -1,0 +1,47 @@
+@import "../../styles/_vars.scss";
+@import '../../styles/_mixins.scss';
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 30px;
+}
+
+.close {
+    margin-left: auto;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.title {
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.productName {
+    margin-bottom: 20px;
+    font-family: 'Literata', serif;
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.message {
+    margin-bottom: 30px;
+}
+
+.name,
+.phone {
+    width: 100%;
+    // outline: 0;
+    background: $white;
+    border: $border;
+    margin: 0 0 2rem;
+    padding: 1.5rem;
+    box-sizing: border-box;
+
+    font-size: 1.6rem;
+    font-family: inherit;
+    font-weight: 300;
+    cursor: text;
+}

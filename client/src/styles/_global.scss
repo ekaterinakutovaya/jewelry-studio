@@ -1,0 +1,134 @@
+@import "./_mixins.scss";
+
+// @import "~react-image-gallery/styles/scss/image-gallery.scss";
+
+html {
+  font-size: 62.5%;
+  -ms-overflow-style: none; /* IE 10+ */
+  // scrollbar-width: none; /* Firefox */
+}
+
+body {
+  font-family: "Literata", serif;
+  font-size: 1.6rem;
+  font-weight: 300;
+  line-height: 1.5;
+  color: var(--default-font-color);
+
+  background-color: var(--bg);
+
+  overflow-y: scroll;
+  overflow-x: hidden;
+
+  @include for-phone-only {
+    background-color: #f5f5f5;
+  }
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+li {
+  list-style-type: none;
+}
+
+::-webkit-scrollbar {
+  /* chrome based */
+  width: 0px; /* ширина scrollbar'a */
+  background: transparent; /* опционально */
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+input[type="checkbox"] {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+input {
+  appearance: none;
+  outline: 0;
+  border: var(--default-border);
+  font-family: inherit;
+  font-weight: inherit;
+  font-size: 14px;
+  padding: 2px;
+  // background: var(--bg);
+  background-color: transparent;
+  text-align: start;
+  cursor: text;
+
+  transition: all 0.3s ease;
+
+  &:focus {
+    border: var(--default-border-focus);
+  }
+
+//   @include for-phone-only {
+//     // padding: 10px !important;
+//     background-color: #fff;
+//   }
+}
+
+textarea {
+  background-color: transparent;
+
+  @include for-phone-only {
+    background-color: #fff;
+  }
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+
+  @media (min-width: 1200px) and (max-width: 1799px) {
+    max-width: 1000px;
+  }
+
+  @media (min-width: 600px) and (max-width: 899px) {
+    max-width: 600px;
+  }
+}
+
+.container-fluid {
+  width: calc(100% - var(--sidebar-width));
+  margin-left: auto;
+  padding: 15px;
+  padding-bottom: 200px;
+  // border: 1px solid red;
+
+  @media (min-width: 1200px) and (max-width: 1799px) {
+    width: calc(100% - var(--sidebar-width-laptop));
+  }
+
+  @include for-phone-only {
+    width: 100%;
+  }
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  @include for-phone-only {
+    flex-wrap: wrap;
+  }
+}

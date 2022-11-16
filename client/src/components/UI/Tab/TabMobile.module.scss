@@ -1,0 +1,35 @@
+@import "~styles/_vars.scss";
+@import "~styles/mixins.scss";
+
+.scrollableContainer {
+    position: relative;
+    order: 0;
+    margin-bottom: 15px;
+
+     @include for-phone-only {
+        order: 1;
+    }
+}
+
+.tab {
+    display: flex;
+    overflow-x: auto;
+    max-width: calc(100vw - 30px);
+}
+
+.item {
+    flex-shrink: 0;
+    font-weight: 400;
+    padding: 10px 20px;
+    margin-right: 5px;
+    border: $border;
+    cursor: pointer;
+
+    @include for-desktop-only {
+        font-size: 1.4rem;
+    }
+}
+
+.activeTab {
+    background-color: $champagne;
+}

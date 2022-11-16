@@ -1,0 +1,116 @@
+@import "../../../styles/_vars.scss";
+@import "../../../styles/_mixins.scss";
+
+.table {
+    font-size: 14px;
+    table-layout: fixed;
+    width: 100%;
+
+    th {
+        background-color: $champagne;
+        border: 1px solid $champagne;
+        font-weight: 400;
+        text-align: center;
+        padding: 1.5rem;
+        white-space: nowrap;
+        // border: $dotted;
+        // border-bottom: 1px solid $champagne;
+
+        @include for-desktop-only {
+            font-size: 12px;
+        }
+    }
+
+    // th:nth-child(1) {
+    //     text-align: left;
+    // }
+
+    tbody td {
+        background-color: $bg;
+        padding: 10px;
+        border: $border;
+        text-align: center;
+
+        @include for-desktop-only {
+            // font-size: 13px;
+            // padding: 10px 5px;
+        }
+
+        input {
+
+            &:disabled {
+                color: rgba(0, 0, 0, 1);
+                pointer-events: auto;
+            }
+        }
+
+        // border: $dotted;
+    }
+
+    tbody td:nth-child(1) {
+        text-align: left;
+    }
+}
+
+.edit {
+    font-size: 16px;
+    color: #5a4c49;
+    vertical-align: middle;
+
+    @include for-desktop-only {
+        font-size: 14px;
+    }
+}
+
+.input {
+    width: 50%;
+    text-align: center;
+    border: 0;
+    border-bottom: 1px solid transparent;
+    background: transparent;
+
+    &:focus {
+        border: 0;
+        border-bottom: 1px solid #b9a493;
+        outline: 0;
+    }
+}
+
+.inputActive {
+    width: 50%;
+    text-align: center;
+    border: 0;
+    border-bottom: 1px solid #b9a493;
+    outline: 0;
+
+    &:focus {
+        border: 0;
+        border-bottom: 1px solid #b9a493;
+        outline: 0;
+    }
+}
+
+.wrapper {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    padding: 0 45px;
+}
+
+.save {
+    font-size: 16px;
+    color: #5a4c49;
+    vertical-align: middle;
+
+    @include for-desktop-only {
+        font-size: 14px;
+    }
+}
+
+.cancel {
+    // border: $red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

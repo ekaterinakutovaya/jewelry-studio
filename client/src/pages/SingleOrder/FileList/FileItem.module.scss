@@ -1,0 +1,65 @@
+@import "~styles/_vars.scss";
+@import "~styles/_mixins.scss";
+
+
+.file {
+    display: flex;
+    align-items: center;
+}
+
+.link {
+    padding-left: 25px;
+    position: relative;
+    font-size: 14px;
+    font-weight: 500;
+    opacity: 1;
+    transition: opacity .3s;
+    cursor: pointer;
+
+    &::before {
+        content: "\f019";
+        font-family: 'FontAwesome';
+        font-size: 16px;
+        font-weight: 400;
+        color: #65a838;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    &:hover {
+        opacity: 0.6;
+        transition: opacity .3s;
+    }
+
+}
+
+.removeBtn {
+    margin: 0;
+    padding: 0;
+    display: table-cell;
+}
+
+.removeIcon {
+    font-size: 14px;
+    color: #d64045;
+    cursor: pointer;
+    transition: color .3s;
+    vertical-align: middle;
+    display: table-cell;
+
+    &:hover {
+        color: lighten(#d64045, 20%);
+        transition: color .3s;
+    }
+
+}
+
+.cancel {
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.newFile {
+    cursor: pointer;
+}

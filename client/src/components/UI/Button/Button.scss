@@ -1,0 +1,81 @@
+@import "../../../styles/_vars.scss";
+@import '../../../styles/_mixins.scss';
+
+.btn {
+    display: inline-block;
+    border-radius: 2px;
+    border: 1px solid black;
+    cursor: pointer;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 600;
+    background-color: transparent;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    padding: 10px 30px;
+
+    &--light {
+        text-transform: uppercase;
+        // padding: 10px 30px;
+
+        &:hover {
+            background-color: $btn-hover;
+            color: #fcfbf9;
+        }
+    }
+
+    // &--control {
+    //     padding: .7rem 1.5rem;
+
+    //     &:hover {
+    //         background-color: $btn-hover;
+    //         color: #fcfbf9;
+    //     }
+    // }
+
+    &--dark {
+        background-color: $btn-hover;
+        color: #fcfbf9;
+        text-transform: uppercase;
+        padding: 1.5rem 3rem;
+        letter-spacing: 1px;
+
+        &:hover {
+            background-color: transparent;
+            color: $btn-hover;
+        }
+    }
+
+    &--query {
+        margin-top: 20px;
+    }
+
+    @include for-phone-only {
+        width: 100%;
+        padding: 20px 30px;
+    }
+    @include for-desktop-only {
+        font-size: 1.4rem;
+    }
+
+}
+
+// .btn--secondary {
+//     text-transform: uppercase;
+//     padding: 1rem 3rem;
+
+//     &:hover {
+//         background-color: $btn-hover;
+//         color: #fcfbf9;
+//     }
+// }
+
+// .btn--dark {
+//     background-color: $btn-hover;
+//     color: #fcfbf9;
+
+//     &:hover {
+//         background-color: transparent;
+//         color: $btn-hover;
+//     }
+// }

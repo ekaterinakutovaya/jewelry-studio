@@ -1,0 +1,36 @@
+@import "../../../styles/_vars.scss";
+@import '../../../styles/_mixins.scss';
+
+.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // width: 150px;
+    height: 50px;
+    // border: $dotted;
+
+    @include for-phone-only {
+        width: 50px;
+        height: 35px;
+
+    }
+
+    @include for-tablet-portait-only {
+        width: 50px;
+        height: 35px;
+    }
+}
+
+.icon {
+    width: 40px;
+    // height: 40px;
+    height: auto;
+    // fill: white;
+    fill: #cbcbcb;
+    cursor: pointer;
+    transition: fill 0.3s ease;
+    transform: rotate(90deg);
+
+
+}
+
