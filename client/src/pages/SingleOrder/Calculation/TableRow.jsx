@@ -1,21 +1,34 @@
 import React, { useState, useEffect } from "react";
-import styles from "./Calculation.module.scss";
-import { numberFormatter } from "utils/utils";
+import { AiFillCloseCircle } from "react-icons/ai";
+
+import { numberFormatter, setGemsPrice, setMetallPrice } from "utils/utils";
 import { useSelector, useDispatch } from "react-redux";
-import { addData, updateCalculation } from "store/CalculationSlice";
-import Checkbox from "components/UI/Checkbox/Checkbox";
+import { updateCalculation } from "store/CalculationSlice";
 
+import styles from "./Calculation.module.scss";
 
-const TableRow = ({ item, index, onChange, isDisabled = false }) => {
+const TableRow = ({ item, index, onChange, isDisabled = false, removeRow }) => {
   const dispatch = useDispatch();
   const [values, setValues] = useState(item);
 
   const [cost, setCost] = useState(0);
-  const [isChecked, setIsChecked] = useState(false);
   const { prices } = useSelector(state => state.prices);
   const { carats } = useSelector(state => state.carats);
   const [isPriceEditing, setIsPriceEditing] = useState(false);
   const [isSizeEditing, setIsSizeEditing] = useState(false);
+
+  useEffect(() => {
+    setValues(item);
+
+    return () => {
+      setValues([]);
+    };
+  }, [item]);
+
+  useEffect(() => {
+    setCost(+values.qty * +values.price);
+    onChange(values, index);
+  }, [values]);
 
   const togglePriceEditing = () => {
     if (values.price === 0) {
@@ -37,24 +50,7 @@ const TableRow = ({ item, index, onChange, isDisabled = false }) => {
     setIsSizeEditing(!isSizeEditing);
   };
 
-  
-  useEffect(() => {
-    
-    
-    setValues(item);
-    setIsChecked(false);
-
-    return () => {
-      setValues([]);
-    };
-  }, [item]);
-
-  useEffect(() => {
-    setCost(+values.qty * +values.price);
-    onChange(values, index, isChecked);
-  }, [values]);
-
-  const handleInputChange = e => {
+  const inputChangeHandler = e => {
     const { name, value } = e.target;
 
     setValues({
@@ -65,172 +61,17 @@ const TableRow = ({ item, index, onChange, isDisabled = false }) => {
     dispatch(updateCalculation({ name, value, index }));
   };
 
+  const gemsPriceAndCaratsHandler = () => {
+    setGemsPrice({ index, values, prices, carats, setValues });
+    toggleSizeEditing();
+  }
 
-  const getPricefromDB = () => {
-    toggleSizeEditing();    
-
-    if (
-      (values.name.toLowerCase() === "бриллиант" ||
-        values.name.toLowerCase() === "бриллианты") &&
-      (+values.size > 0.85 && +values.size <= 7)
-    ) {
-      const price = prices.find(price => +price.diamond_size == +values.size);
-      let carat = carats.find(carat => +carat.diamond_size == +values.size);
-
-      if (!carat) {
-        carat = "";
-      }
-
-      if (price) {
-        setValues(values => ({
-          ...values,
-          carat: carat.diamond_carat,
-          price: price.price_value,
-          price_id: +price.price_id
-        }));
-        dispatch(
-          updateCalculation({
-            name: "carat",
-            value: carat.diamond_carat,
-            index: index
-          })
-        );
-        dispatch(
-          updateCalculation({
-            name: "price",
-            value: price.price_value,
-            index: index
-          })
-        );
-        dispatch(
-          updateCalculation({
-            name: "price_id",
-            value: +price.price_id,
-            index: index
-          })
-        );
-      } else {
-        setValues(values => ({
-          ...values,
-          carat: carat.diamond_carat
-        }));
-        dispatch(
-          updateCalculation({
-            name: "carat",
-            value: carat.diamond_carat,
-            index: index
-          })
-        );
-      }
-    }
-  };
-
-  const getMetallPricefromDB = () => {
-    let price;
-    // console.log('blur');
-    switch (+values.hallmark) {
-      case 583:
-        price = prices.find(price => +price.hallmark == +values.hallmark);
-        console.log(typeof price.price_value);
-        
-        setValues(values => ({
-          ...values,
-          name: "Золото",
-          unit: "гр.",
-          price: price.price_value,
-          price_id: +price.price_id
-        }));
-        dispatch(
-          updateCalculation({ name: "name", value: "Золото", index: index })
-        );
-        dispatch(
-          updateCalculation({ name: "unit", value: "гр.", index: index })
-        );
-        dispatch(
-          updateCalculation({
-            name: "price",
-            value: price.price_value,
-            index: index
-          })
-        );
-        dispatch(
-          updateCalculation({
-            name: "price_id",
-            value: +price.price_id,
-            index: index
-          })
-        );
-        break;
-
-      case 750:
-        price = prices.find(price => +price.hallmark == +values.hallmark);
-        setValues(values => ({
-          ...values,
-          name: "Золото",
-          unit: "гр.",
-          price: price.price_value,
-          price_id: +price.price_id
-        }));
-        dispatch(
-          updateCalculation({ name: "name", value: "Золото", index: index })
-        );
-        dispatch(
-          updateCalculation({ name: "unit", value: "гр.", index: index })
-        );
-        dispatch(
-          updateCalculation({
-            name: "price",
-            value: price.price_value,
-            index: index
-          })
-        );
-        dispatch(
-          updateCalculation({
-            name: "price_id",
-            value: +price.price_id,
-            index: index
-          })
-        );
-        break;
-
-      case 925:
-        price = prices.find(price => +price.hallmark == +values.hallmark);
-        // console.log(prices);
-
-        setValues(values => ({
-          ...values,
-          name: "Серебро",
-          unit: "гр.",
-          price: price.price_value,
-          price_id: +price.price_id
-        }));
-        dispatch(
-          updateCalculation({ name: "name", value: "Серебро", index: index })
-        );
-        dispatch(
-          updateCalculation({ name: "unit", value: "гр.", index: index })
-        );
-        dispatch(
-          updateCalculation({
-            name: "price",
-            value: price.price_value,
-            index: index
-          })
-        );
-        dispatch(
-          updateCalculation({
-            name: "price_id",
-            value: +price.price_id,
-            index: index
-          })
-        );
-        break;
-    }
+  const metallPriceHandler = () => {
+    setMetallPrice({ index, values, prices, setValues });
   };
 
   return (
     <tr className={styles.row}>
-      <td>{!isDisabled ? <Checkbox values={values} setValues={setValues} /> : ""}</td>
       <td>
         <input
           data-index={index}
@@ -239,7 +80,7 @@ const TableRow = ({ item, index, onChange, isDisabled = false }) => {
           align="left"
           className={styles.input}
           value={values.name}
-          onChange={handleInputChange}
+          onChange={inputChangeHandler}
           disabled={isDisabled ? true : false}
         />
       </td>
@@ -250,22 +91,12 @@ const TableRow = ({ item, index, onChange, isDisabled = false }) => {
           type="text"
           className={styles.input}
           value={values.hallmark}
-          onChange={handleInputChange}
-          onBlur={getMetallPricefromDB}
+          onChange={inputChangeHandler}
+          onBlur={metallPriceHandler}
           disabled={isDisabled ? true : false}
         />
       </td>
-      <td>
-        <input
-          data-index={index}
-          name="unit"
-          type="text"
-          className={styles.input}
-          value={values.unit}
-          onChange={handleInputChange}
-          disabled={isDisabled ? true : false}
-        />
-      </td>
+      
       <td>
         {isSizeEditing ? (
           <input
@@ -273,8 +104,8 @@ const TableRow = ({ item, index, onChange, isDisabled = false }) => {
             name="size"
             className={styles.inputEditing}
             value={values.size}
-            onChange={handleInputChange}
-            onBlur={getPricefromDB}
+            onChange={inputChangeHandler}
+            onBlur={gemsPriceAndCaratsHandler}
           />
         ) : (
           <input
@@ -282,7 +113,7 @@ const TableRow = ({ item, index, onChange, isDisabled = false }) => {
             name="size"
             className={styles.inputReadonly}
             value={values.size != "" ? numberFormatter(values.size, 1, 2) : ""}
-            onChange={handleInputChange}
+              onChange={inputChangeHandler}
             onFocus={toggleSizeEditing}
             readOnly
             disabled={isDisabled ? true : false}
@@ -295,7 +126,7 @@ const TableRow = ({ item, index, onChange, isDisabled = false }) => {
           name="carat"
           className={styles.input}
           value={values.carat}
-          onChange={handleInputChange}
+          onChange={inputChangeHandler}
           disabled={isDisabled ? true : false}
         />
       </td>
@@ -305,7 +136,18 @@ const TableRow = ({ item, index, onChange, isDisabled = false }) => {
           name="qty"
           className={styles.input}
           value={values.qty}
-          onChange={handleInputChange}
+          onChange={inputChangeHandler}
+          disabled={isDisabled ? true : false}
+        />
+      </td>
+      <td>
+        <input
+          data-index={index}
+          name="unit"
+          type="text"
+          className={styles.input}
+          value={values.unit}
+          onChange={inputChangeHandler}
           disabled={isDisabled ? true : false}
         />
       </td>
@@ -316,10 +158,8 @@ const TableRow = ({ item, index, onChange, isDisabled = false }) => {
             name="price"
             className={styles.inputEditing}
             value={values.price}
-            onChange={handleInputChange}
+            onChange={inputChangeHandler}
             onBlur={togglePriceEditing}
-            data-trigger="addRow"
-            disabled={isDisabled ? true : false}
           />
         ) : (
           <input
@@ -327,10 +167,9 @@ const TableRow = ({ item, index, onChange, isDisabled = false }) => {
             name="price"
             className={styles.inputReadonly}
             value={
-              values.price != "" ? numberFormatter(values.price, 2, 2) : ""
+              values.price !== "" ? numberFormatter(values.price, 2, 2) : ""
             }
-            onChange={handleInputChange}
-            data-trigger="addRow"
+              onChange={inputChangeHandler}
             onFocus={togglePriceEditing}
             readOnly
             disabled={isDisabled ? true : false}
@@ -342,6 +181,16 @@ const TableRow = ({ item, index, onChange, isDisabled = false }) => {
           {cost !== 0 ? numberFormatter(cost, 2, 2) : ""}
         </span>
       </td>
+
+      {!isDisabled ? (
+        <td >
+          <button onClick={e => removeRow(index)}>
+            <AiFillCloseCircle className={styles.removeRow} />
+          </button>
+        </td>
+      ) : (
+        ""
+      )}
     </tr>
   );
 };

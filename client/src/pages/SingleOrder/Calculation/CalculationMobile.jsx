@@ -23,7 +23,6 @@ const CalculationMobile = ({ setCalculation, isDisabled }) => {
       setRows([]);
       
       calculation.map((item, index) => {
-        // console.log(item.name);
           setRows(prevState => [
             ...prevState,
             {
@@ -33,10 +32,9 @@ const CalculationMobile = ({ setCalculation, isDisabled }) => {
               size: item.size,
               carat: item.carat || "",
               qty: +item.qty || "",
-              price: +item.price,
+              price: item.price,
               price_id: +item.price_id,
               cost: +item.qty * +item.price,
-              isChecked: false
             }
           ]);
       });
@@ -59,26 +57,6 @@ const CalculationMobile = ({ setCalculation, isDisabled }) => {
     });
   }, [rows]);
 
-  useEffect(() => {
-    // console.log(rows);
-
-    const listener = e => {
-      if (e.target.dataset.trigger === "addRow") {
-        if (
-          e.code === "Enter" ||
-          e.code === "NumpadEnter" ||
-          e.code === "Tab"
-        ) {
-          handleAddMore();
-        }
-      }
-    };
-    document.addEventListener("keydown", listener);
-
-    return () => {
-      document.removeEventListener("keydown", listener);
-    };
-  }, [rows]);
 
   const handleAddMore = () => {
     setRows([
@@ -93,7 +71,6 @@ const CalculationMobile = ({ setCalculation, isDisabled }) => {
         price: "",
         price_id: "",
         cost: "",
-        isChecked: false
       }
     ]);
 
@@ -108,52 +85,45 @@ const CalculationMobile = ({ setCalculation, isDisabled }) => {
         price: "",
         price_id: "",
         cost: "",
-        isChecked: false
       })
     );
   };
 
-  const removeRow = () => {
-    // console.log('remove');
-    
-    
+  const removeRow = (index) => {
     const list = [...rows];
 
-    rows.map((item, index) => {
-      if (item.isChecked) {
-        if (list.length - 1 > 0) {
-          // setRows(list.filter((el, i) => index !== i));
-          dispatch(removeData(index));
-        } else {
-          // setRows([
-          //   {
-          //     name: "",
-          //     hallmark: "",
-          //     unit: "",
-          //     size: "",
-          //     carat: "",
-          //     qty: "",
-          //     price: "",
-          //     cost: "",
-          //     isChecked: false
-          //   }
-          // ]);
-          dispatch(removeData(index));
-          dispatch(addData({
-            name: "",
-            hallmark: "",
-            unit: "",
-            size: "",
-            carat: "",
-            qty: "",
-            price: "",
-            price_id: "",
-            cost: "",
-            isChecked: false
-          }));
+    if (list.length - 1 > 0) {
+      list.splice(index, 1);
+      setRows(list);
+      dispatch(removeData(index));
+    } else {
+      setRows([
+        {
+          name: "",
+          hallmark: "",
+          unit: "",
+          size: "",
+          carat: "",
+          qty: "",
+          price: "",
+          cost: "",
         }
-      }
-    });
+      ]);
+
+      dispatch(removeData(index));
+      dispatch(addData({
+        name: "",
+        hallmark: "",
+        unit: "",
+        size: "",
+        carat: "",
+        qty: "",
+        price: "",
+        price_id: "",
+        cost: "",
+      }));
+    }
+
   };
 
   const handleInputChange = (value, index) => {
@@ -168,18 +138,14 @@ const CalculationMobile = ({ setCalculation, isDisabled }) => {
     arr[index].price = value.price;
     arr[index].price_id = +value.price_id;
     arr[index].cost = +value.qty * +value.price;
-    arr[index].isChecked = value.isChecked;
     setRows(arr);
   };
 
   return (
-    <div>
+    <>
       <h3 className="my-4" style={{fontWeight: '500', fontSize: '28px'}}>Калькуляция</h3>
 
       <div className={styles.table}>
-        <div className={styles.header}>
-          <div className={styles.headerCell}></div>
-        </div>
 
         {rows && rows.map((row, index) => (
           <TableRowMobile
@@ -188,6 +154,7 @@ const CalculationMobile = ({ setCalculation, isDisabled }) => {
             onChange={handleInputChange}
             index={index}
             isDisabled={isDisabled}
+            removeRow={removeRow}
           />
         ))}
 
@@ -195,14 +162,11 @@ const CalculationMobile = ({ setCalculation, isDisabled }) => {
           <button className={styles.addMoreRow} onClick={handleAddMore}>
             <FaPlusSquare />
           </button>
-          <button className={styles.deleteRow} onClick={removeRow}>
-            <FaTimes />
-          </button>
         </div>
 
         <div className={styles.total}>ИТОГО: <span>{currencyFormatter(totalCost)}</span></div>
       </div>
-    </div>
+    </>
   );
 };
 

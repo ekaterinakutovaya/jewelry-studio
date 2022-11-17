@@ -1,6 +1,7 @@
-export const API_URL = "http://juliyaserver";
+export const API_URL = "http://juliyastudio";
 // export const API_URL = "https://studio.kutovaya.ru";
 // export const API_URL = "http://tyusha.beget.tech";
+// export const API_URL = process.env.REACT_APP_API;
 
 export const LOGIN_ROUTE = "/login";
 export const REGISTRATION_ROUTE = "/registration";

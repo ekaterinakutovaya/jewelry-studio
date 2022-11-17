@@ -112,7 +112,7 @@ textarea {
   margin-left: auto;
   padding: 15px;
   padding-bottom: 200px;
-  // border: 1px solid red;
+  height: 200vh;
 
   @media (min-width: 1200px) and (max-width: 1799px) {
     width: calc(100% - var(--sidebar-width-laptop));

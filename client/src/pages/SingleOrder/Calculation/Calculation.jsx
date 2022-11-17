@@ -18,24 +18,23 @@ const Calculation = ({ setCalculation, isDisabled }) => {
   useEffect(() => {
     if (calculation && calculation.length !== 0) {
       setRows([]);
-      
+
       calculation.map((item, index) => {
         // console.log(item.name);
-          setRows(prevState => [
-            ...prevState,
-            {
-              name: item.name,
-              hallmark: item.hallmark,
-              unit: item.unit,
-              size: item.size,
-              carat: item.carat || "",
-              qty: +item.qty || "",
-              price: +item.price,
-              price_id: +item.price_id,
-              cost: +item.qty * +item.price,
-              isChecked: false
-            }
-          ]);
+        setRows(prevState => [
+          ...prevState,
+          {
+            name: item.name,
+            hallmark: item.hallmark,
+            unit: item.unit,
+            size: item.size,
+            carat: item.carat || "",
+            qty: +item.qty || "",
+            price: item.price,
+            price_id: +item.price_id,
+            cost: +item.qty * +item.price,
+          }
+        ]);
       });
     }
 
@@ -47,7 +46,7 @@ const Calculation = ({ setCalculation, isDisabled }) => {
   useEffect(() => {
     setTotalCost(0);
     setCalculation([]);
-  
+
     rows.map(item => {
       setTotalCost(prevState => prevState + +item.cost);
       if (item.name !== "") {
@@ -56,26 +55,6 @@ const Calculation = ({ setCalculation, isDisabled }) => {
     });
   }, [rows]);
 
-  useEffect(() => {
-    // console.log(rows);
-
-    const listener = e => {
-      if (e.target.dataset.trigger === "addRow") {
-        if (
-          e.code === "Enter" ||
-          e.code === "NumpadEnter" ||
-          e.code === "Tab"
-        ) {
-          handleAddMore();
-        }
-      }
-    };
-    document.addEventListener("keydown", listener);
-
-    return () => {
-      document.removeEventListener("keydown", listener);
-    };
-  }, [rows]);
 
   const handleAddMore = () => {
     setRows([
@@ -90,7 +69,6 @@ const Calculation = ({ setCalculation, isDisabled }) => {
         price: "",
         price_id: "",
         cost: "",
-        isChecked: false
       }
     ]);
 
@@ -105,52 +83,44 @@ const Calculation = ({ setCalculation, isDisabled }) => {
         price: "",
         price_id: "",
         cost: "",
-        isChecked: false
       })
     );
   };
 
-  const removeRow = () => {
-    // console.log('remove');
-    
-    
+  const removeRow = (index) => {
     const list = [...rows];
-
-    rows.map((item, index) => {
-      if (item.isChecked) {
-        if (list.length - 1 > 0) {
-          // setRows(list.filter((el, i) => index !== i));
-          dispatch(removeData(index));
-        } else {
-          // setRows([
-          //   {
-          //     name: "",
-          //     hallmark: "",
-          //     unit: "",
-          //     size: "",
-          //     carat: "",
-          //     qty: "",
-          //     price: "",
-          //     cost: "",
-          //     isChecked: false
-          //   }
-          // ]);
-          dispatch(removeData(index));
-          dispatch(addData({
-            name: "",
-            hallmark: "",
-            unit: "",
-            size: "",
-            carat: "",
-            qty: "",
-            price: "",
-            price_id: "",
-            cost: "",
-            isChecked: false
-          }));
+    if (list.length - 1 > 0) {
+      list.splice(index, 1);
+      setRows(list);
+      dispatch(removeData(index));
+    } else {
+      setRows([
+        {
+          name: "",
+          hallmark: "",
+          unit: "",
+          size: "",
+          carat: "",
+          qty: "",
+          price: "",
+          cost: "",
         }
-      }
-    });
+      ]);
+
+      dispatch(removeData(index));
+      dispatch(addData({
+        name: "",
+        hallmark: "",
+        unit: "",
+        size: "",
+        carat: "",
+        qty: "",
+        price: "",
+        price_id: "",
+        cost: "",
+      }));
+    }
+
   };
 
   const handleInputChange = (value, index) => {
@@ -165,7 +135,6 @@ const Calculation = ({ setCalculation, isDisabled }) => {
     arr[index].price = value.price;
     arr[index].price_id = +value.price_id;
     arr[index].cost = +value.qty * +value.price;
-    arr[index].isChecked = value.isChecked;
     setRows(arr);
   };
 
@@ -173,30 +142,24 @@ const Calculation = ({ setCalculation, isDisabled }) => {
     <div>
       <h4 className="my-4">Калькуляция</h4>
 
-      <div
-        className={
-          isDisabled ? styles.actionButtons : styles.actionButtonsActive
-        }
-      >
+      <div className={isDisabled ? styles.actionButtons : styles.actionButtonsActive}>
         <button className={styles.addMoreRow} onClick={handleAddMore}>
           <FaPlusSquare />
         </button>
-        <button className={styles.deleteRow} onClick={removeRow}>
-          <FaTimes />
-        </button>
       </div>
+
       <table className={styles.table}>
         <thead>
           <tr>
-            <th></th>
-            <th>Наименование</th>
+            <th>Материал</th>
             <th>Проба</th>
-            <th>Ед.изм</th>
             <th>Размер, мм.</th>
             <th>Карат</th>
             <th>Кол-во</th>
+            <th>Ед.изм</th>
             <th>Цена</th>
             <th>Стоимость</th>
+            <th></th>
           </tr>
         </thead>
 
@@ -208,9 +171,9 @@ const Calculation = ({ setCalculation, isDisabled }) => {
               onChange={handleInputChange}
               index={index}
               isDisabled={isDisabled}
+              removeRow={removeRow}
             />
           ))}
-          {/* <tr><td></td></tr> */}
         </tbody>
         <tfoot className={styles.footer}>
           <tr>
@@ -220,12 +183,13 @@ const Calculation = ({ setCalculation, isDisabled }) => {
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
-            <td>&nbsp;</td>
             <td>Итого</td>
             <td>{currencyFormatter(totalCost)}</td>
+            <td>&nbsp;</td>
           </tr>
         </tfoot>
       </table>
+      
     </div>
   );
 };

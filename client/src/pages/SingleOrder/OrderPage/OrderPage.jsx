@@ -79,9 +79,10 @@ const OrderPage = () => {
 
   const [calculation, setCalculation] = useState([]);
 
-  useEffect(() => {
-    console.log(cuttingFilesToDelete);
-    
+  console.log(calculation);
+  
+
+  useEffect(() => {    
   }, [cuttingFilesToDelete]);
 
   useEffect(() => {
@@ -92,7 +93,7 @@ const OrderPage = () => {
     dispatch(fetchCalculationByID(id));
 
     return () => {
-      dispatch(clearCalculation());
+      // dispatch(clearCalculation());
     }
   }, [isEditMode]);
 
@@ -535,6 +536,28 @@ const OrderPage = () => {
           setCalculation={setCalculation}
           isDisabled={isEditMode ? false : true}
         />
+      </div>
+
+      <div className="row my-5 justify-content-between">
+        {isEditMode ? (
+          <div>
+            <Button type="light" onClick={updateOrderHandler} margin={"mx-4"}>
+              Сохранить
+            </Button>
+            <Button type="light" onClick={handleCancelEditMode}>
+              Отмена
+            </Button>
+          </div>
+        ) : (
+          <div>
+            <Button type="light" onClick={handleEditMode} margin={"mx-4"}>
+              Редактировать
+            </Button>
+            <Button type="light" onClick={sendToFraserHandler}>
+              На резку
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   );

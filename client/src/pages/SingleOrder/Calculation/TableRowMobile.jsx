@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { AiFillCloseCircle } from "react-icons/ai";
 
 import { numberFormatter } from "utils/utils";
 import { useSelector, useDispatch } from "react-redux";
@@ -7,12 +8,11 @@ import Checkbox from "components/UI/Checkbox/Checkbox";
 
 import styles from "./CalculationMobile.module.scss";
 
-const TableRowMobile = ({ item, index, onChange, isDisabled = false }) => {
+const TableRowMobile = ({ item, index, onChange, isDisabled = false, removeRow }) => {
   const dispatch = useDispatch();
   const [values, setValues] = useState(item);
 
   const [cost, setCost] = useState(0);
-  const [isChecked, setIsChecked] = useState(false);
   const { prices } = useSelector(state => state.prices);
   const { carats } = useSelector(state => state.carats);
   const [isPriceEditing, setIsPriceEditing] = useState(false);
@@ -38,10 +38,9 @@ const TableRowMobile = ({ item, index, onChange, isDisabled = false }) => {
     setIsSizeEditing(!isSizeEditing);
   };
 
-  
+
   useEffect(() => {
     setValues(item);
-    setIsChecked(false);
 
     return () => {
       setValues([]);
@@ -50,7 +49,7 @@ const TableRowMobile = ({ item, index, onChange, isDisabled = false }) => {
 
   useEffect(() => {
     setCost(+values.qty * +values.price);
-    onChange(values, index, isChecked);
+    onChange(values, index);
   }, [values]);
 
   const handleInputChange = e => {
@@ -66,7 +65,7 @@ const TableRowMobile = ({ item, index, onChange, isDisabled = false }) => {
 
 
   const getPricefromDB = () => {
-    toggleSizeEditing();    
+    toggleSizeEditing();
 
     if (
       (values.name.toLowerCase() === "бриллиант" ||
@@ -131,7 +130,7 @@ const TableRowMobile = ({ item, index, onChange, isDisabled = false }) => {
       case 583:
         price = prices.find(price => +price.hallmark == +values.hallmark);
         console.log(typeof price.price_value);
-        
+
         setValues(values => ({
           ...values,
           name: "Золото",
@@ -230,6 +229,18 @@ const TableRowMobile = ({ item, index, onChange, isDisabled = false }) => {
   return (
     <div className={styles.row}>
 
+      <div className={styles.head}>
+        {!isDisabled ? (
+          <td >
+            <button onClick={e => removeRow(index)}>
+              <AiFillCloseCircle className={styles.removeRow} />
+            </button>
+          </td>
+        ) : (
+          ""
+        )}
+        </div>
+
       <div className={styles.cell}>
         <label htmlFor="" style={{ fontWeight: '500' }}>Материал</label>
       </div>
@@ -263,23 +274,10 @@ const TableRowMobile = ({ item, index, onChange, isDisabled = false }) => {
         />
       </div>
 
-      <div className={styles.cell}>
-        <label htmlFor="">Ед.изм</label>
-      </div>
-      <div className={styles.cell}>
-        <input
-          data-index={index}
-          name="unit"
-          type="text"
-          className={styles.input}
-          value={values.unit}
-          onChange={handleInputChange}
-          disabled={isDisabled ? true : false}
-        />
-      </div>
+
 
       <div className={styles.cell}>
-        <label htmlFor="">Размер, мм.</label>
+        <label htmlFor="">Размер</label>
       </div>
       <div className={styles.cell}>
         {isSizeEditing ? (
@@ -334,6 +332,21 @@ const TableRowMobile = ({ item, index, onChange, isDisabled = false }) => {
       </div>
 
       <div className={styles.cell}>
+        <label htmlFor="">Ед.изм</label>
+      </div>
+      <div className={styles.cell}>
+        <input
+          data-index={index}
+          name="unit"
+          type="text"
+          className={styles.input}
+          value={values.unit}
+          onChange={handleInputChange}
+          disabled={isDisabled ? true : false}
+        />
+      </div>
+
+      <div className={styles.cell}>
         <label htmlFor="">Цена</label>
       </div>
       <div className={styles.cell}>
@@ -366,11 +379,11 @@ const TableRowMobile = ({ item, index, onChange, isDisabled = false }) => {
       </div>
 
       <div className={styles.cell}>
-        <label htmlFor="" style={{fontWeight: '500'}}>Стоимость</label>
+        <label htmlFor="" style={{ fontWeight: '500' }}>Стоимость</label>
       </div>
       <div className={styles.cell}>
-        <span type="text" name="cost" className={styles.span}>
-          {cost !== 0 ? numberFormatter(cost, 2, 2) : ""}
+        <span type="text" name="cost" className={styles.cost}>
+          {cost !== 0 ? numberFormatter(cost, 2, 2) : '0,00'}
         </span>
       </div>
 

@@ -67,6 +67,7 @@ const persistConfig = {
 }
 
 const reducer = combineReducers({
+  calculation: CalculationReducer,
   auth: AuthReducer,
   orders: OrdersReducer,
   filter: FilterReducer,
@@ -79,7 +80,6 @@ const reducer = combineReducers({
   orderImages: OrderImagesReducer,
   prices: PricesReducer,
   carats: CaratsReducer,
-  calculation: CalculationReducer,
   sidebar: SidebarReducer
 });
 

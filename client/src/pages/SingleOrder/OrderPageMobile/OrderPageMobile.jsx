@@ -545,7 +545,7 @@ const OrderPageMobile = () => {
         />
       </div>
 
-      <div style={{ margin: '20px 0 40px 0' }}>
+      <div style={{ height: '50vh' }}>
         {isEditMode ? (
           <div>
             <Button type="dark" onClick={updateOrderHandler} margin={"my-4"}>

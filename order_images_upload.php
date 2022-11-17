@@ -8,7 +8,9 @@ $database = new Database();
 $db = $database->getConnection();
 
 // $path = $_SERVER['DOCUMENT_ROOT'] . '/assets/uploads/images/orders/';
-$path = 'D:/myProjects/JuliyaStudio/app/public/assets/uploads/images/orders/';
+// $path = 'D:/myProjects/JuliyaStudio/app/public/assets/uploads/images/orders/';
+// 'D:\OpenServer\domains\JuliyaStudio\client\public\assets\uploads\images\orders'
+$path = 'D:/OpenServer/domains/JuliyaStudio/client/public/assets/uploads/images/orders/';
 $db_path = 'assets/uploads/images/orders/';
 
 $id = (int)$_POST['order_id'];
