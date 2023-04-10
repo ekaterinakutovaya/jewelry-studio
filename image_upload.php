@@ -7,8 +7,8 @@ include_once 'controllers/Image.php';
 $database = new Database();
 $db = $database->getConnection();
 
-$dir = $_SERVER['DOCUMENT_ROOT'];
-// $dir = 'D:/OpenServer/domains/JuliyaStudioTailwind/client/public/';
+// $dir = $_SERVER['DOCUMENT_ROOT'];
+$dir = 'D:/OpenServer/domains/JuliyaStudioTailwind/client/public/';
 $image_path = '/assets/uploads/images/';
 
 

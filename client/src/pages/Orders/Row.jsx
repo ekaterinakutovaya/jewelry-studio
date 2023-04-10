@@ -5,10 +5,10 @@ import { toast } from "react-toastify";
 import { FaBolt, FaExclamationCircle, FaTelegram, FaDownload, FaPencilAlt } from "react-icons/fa";
 
 import noPhoto from "@/assets/nophoto.png";
-import { dateFormatter, sendToCutting, downloadFile } from "@/utils/utils";
+import { dateFormatter, downloadFile } from "@/utils/utils";
 import { categories, status } from "@/utils/consts";
 import ordersService from "@/services/orders.service";
-import { fetchOrders, clearState, orderStatusUpdate, quickOrderUpdate, deleteOrder } from "@/store/OrdersSlice";
+import { orderStatusUpdate, quickOrderUpdate, deleteOrder } from "@/store/OrdersSlice";
 
 import { Modal, CategorySelect, StatusSelect, DatePicker, Button, QuickEditButtons, QuickEditButtonsMobile, UrgencyCheckbox, Highlighted } from '@/components';
 
@@ -24,7 +24,6 @@ const Row = ({ order }) => {
   const { files } = useSelector(state => state.files);
   const { searchValue } = useSelector(state => state.filter);
   const orderImage = useSelector(state => state.images.images.find(image => image.orderId === order.orderId));
-  const {loading} = useSelector(state => state.orders);
 
   const [image, setImage] = useState('');
   const [handoverDate, setHandoverDate] = useState('');
@@ -37,9 +36,6 @@ const Row = ({ order }) => {
 
   const [sending, setSending] = useState(false);
   const [saving, setSaving] = useState(false);
-  
-  // console.log();
-  
 
   useEffect(() => {
     setFilesData(files && files.filter(file => file.orderId === order.orderId));
@@ -64,13 +60,6 @@ const Row = ({ order }) => {
       setImage(noPhoto);
     }
   }, [orderImage]);
-
-  const highlight = (str) => {
-    // console.log(str);
-    
-    const res = new RegExp(searchValue, "g");
-    return str.replace(res)
-  }
 
 
   const fileDownloadHandler = () => {
@@ -154,7 +143,7 @@ const Row = ({ order }) => {
     </div> : '';
 
   return (
-    <div className="relative grid gap-2.5 lg:gap-0 grid-cols-2 md:grid-cols-[0.2fr,0.7fr,1.1fr,1.1fr,1.1fr,1.1fr,1.1fr,1.1fr,0.5fr,0.5fr,0.5fr] bg-white md:border-b border-border-main mb-10 md:mb-0 rounded-[20px] md:rounded-none shadow-2xl md:shadow-none px-4 sm:px-10 md:px-8 lg:px-4 py-10 sm:py-12 lg:py-8 md:hover:bg-gray-50 xl:cursor-pointer"
+    <div className="relative grid gap-2.5 lg:gap-0 grid-cols-2 md:grid-cols-[0.2fr,0.7fr,1.1fr,1.1fr,1.1fr,1.1fr,1.1fr,1.1fr,0.5fr,0.5fr,0.5fr] bg-white md:border-b border-border-main mb-10 md:mb-0 rounded-[20px] md:rounded-none shadow-2xl md:shadow-none px-4 sm:px-10 md:px-8 lg:px-4 py-10 sm:py-12 lg:py-8 md:hover:bg-gray-50 md:cursor-pointer"
       onClick={navigateHandler}
     >
       <div className="hidden md:flex items-center lg:text-[8px] xl:text-[10px] md:order-0 xl:cursor-pointer"
@@ -163,7 +152,7 @@ const Row = ({ order }) => {
       </div>
 
       <div className="flex items-left md:items-center justify-center order-0 md:order-1 mb-6 md:mb-0 xl:cursor-pointer">
-        <div className="max-w-[95px] sm:max-w-[150px] lg:max-w-[75px] xl:max-w-[95px] flex items-center rounded-lg overflow-hidden border border-border-main">
+        <div className="max-w-[95px] max-h-[95px] sm:max-w-[150px] sm:max-h-fit lg:max-w-[75px] xl:max-w-[95px] flex items-center rounded-lg overflow-hidden border border-border-main">
           <img src={image} alt="order" />
         </div>
       </div>

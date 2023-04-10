@@ -87,6 +87,7 @@ export const Auth = () => {
                   Логин
                 </label>
                 <input
+                defaultValue="admin"
                   name="username"
                   type="text"
                   required
@@ -106,6 +107,7 @@ export const Auth = () => {
                   Пароль
                 </label>
                 <input
+                  defaultValue="admin"
                   name="password"
                   type="password"
                   autoComplete="current-password"

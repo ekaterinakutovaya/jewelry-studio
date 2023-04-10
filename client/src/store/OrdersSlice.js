@@ -32,10 +32,7 @@ export const fetchOrders = createAsyncThunk(
 export const search = createAsyncThunk(
   "orders/search",
   async (searchValue) => {
-    console.log(searchValue);
-    
     const response = await ordersService.search(searchValue);
-    console.log(response);
     return response.data.data;
   }
 );
@@ -168,6 +165,9 @@ const ordersSlice = createSlice({
       state.orders[foundIndex].statIndex = action.payload.statIndex;
       state.orders[foundIndex].statusRate = action.payload.statusRate;
       state.orders[foundIndex].urgencyIndex = action.payload.urgencyIndex;
+      state.orders = state.orders.sort((a,b) => {
+        return +a.urgencyIndex - +b.urgencyIndex || +a.statusRate - +b.statusRate || b.orderId - a.orderId
+      })
     },
 
     [orderStatusUpdate.fulfilled]: (state, action) => {

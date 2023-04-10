@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import LazyLoad from 'react-lazyload';
 import { FaGhost } from "react-icons/fa";
+import { CgSortAz } from "react-icons/cg";
 
 import { categories } from "@/utils/consts";
 
@@ -17,19 +18,19 @@ import { Button, Search, Tabs, Spinner } from '@/components';
 import Row from './Row';
 
 
-export const Orders = () => {  
+export const Orders = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { orders } = useSelector(state => state.orders);
   const { category } = useSelector(state => state.filter);
-  const { prices } = useSelector(state => state.prices);
   const { searchValue } = useSelector(state => state.filter);
   const { loading } = useSelector(state => state.orders);
   const [filteredOrders, setFilteredOrders] = useState([]);
   const [loadingStatus, setLoadingStatus] = useState(false);
+  const [sort, setSort] = useState('default');
 
   useEffect(() => {
-  document.title = `Мастерская`;
+    document.title = `Мастерская`;
   }, [])
 
   useEffect(() => {
@@ -85,6 +86,18 @@ export const Orders = () => {
     dispatch(fetchOrders(category));
   }, [category]);
 
+  const sortDate = () => {
+    setFilteredOrders([]);
+    let arr = Array.from(orders);
+    let sorted = arr.sort((a, b) => {
+      return new Date(a.handoverDate) - new Date(b.handoverDate);
+    });
+
+    sorted.map(order => {
+      setFilteredOrders(prevState => [...prevState, order]);
+    });
+  }
+
 
   return (
     <div className="container pb-52">
@@ -105,6 +118,10 @@ export const Orders = () => {
           <div className="hidden md:block">Название/Заказчик</div>
           <div className="hidden md:block">Проба/цвет металла</div>
           <div className="hidden md:block">Дата отдачи</div>
+          {/* <div className="hidden md:flex items-center justify-center border-dotted border-2 border-indigo-600">
+            Дата отдачи
+            <button onClick={sortDate}><CgSortAz /></button>
+          </div> */}
           <div className="hidden md:block">Срочность</div>
           <div className="hidden md:block">Категория</div>
           <div className="hidden md:block">Состояние</div>

@@ -13,8 +13,6 @@ module.exports = {
       colors: {
         primary: "#ffffff",
         secondary: "#8744E1",
-        dimWhite: "rgba(255, 255, 255, 0.7)",
-        dimBlue: "rgba(9, 151, 124, 0.1)",
         danger: "#FE718E",
         success: "#1BD8BA"
       },

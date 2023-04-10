@@ -22,8 +22,8 @@ $imageId = $_POST['imageId'];
 $image_path = '/assets/uploads/images/';
 $files_path = '/assets/uploads/files/';
 
-$dir = $_SERVER['DOCUMENT_ROOT'];
-// $dir = 'D:/OpenServer/domains/JuliyaStudioTailwind/client/public/';
+// $dir = $_SERVER['DOCUMENT_ROOT'];
+$dir = 'D:/OpenServer/domains/JuliyaStudioTailwind/client/public/';
 
 switch ($action) {
     case 'register':

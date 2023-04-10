@@ -49,9 +49,9 @@ export const UrgencyCheckbox = ({ urgencyIndex, setUrgencyIndex }) => {
                     onChange={handleCheckbox2}
                     name="urgency"
                     type="checkbox"
-                    className="h-6 md:h-4 w-6 md:w-4 rounded border-gray-300 text-purple-600 focus:ring-purple-500"
+                    className="h-6 md:h-4 w-6 md:w-4 rounded border-gray-300 text-purple-600 focus:ring-purple-500 md:cursor-pointer"
                 />
-                <label htmlFor="checked2" className="ml-2 block text-sm lg:text-xs xl:text-sm text-gray-900 select-none xl:cursor-pointer">
+                <label htmlFor="checked2" className="ml-2 block text-sm lg:text-xs xl:text-sm text-gray-900 select-none md:cursor-pointer">
                     Срочный
                 </label>
             </div>
@@ -63,9 +63,9 @@ export const UrgencyCheckbox = ({ urgencyIndex, setUrgencyIndex }) => {
                     onChange={handleCheckbox1}
                     name="urgency"
                     type="checkbox"
-                    className="h-6 md:h-4 w-6 md:w-4 rounded border-gray-300 text-purple-600 focus:ring-purple-500"
+                    className="h-6 md:h-4 w-6 md:w-4 rounded border-gray-300 text-purple-600 focus:ring-purple-500 md:cursor-pointer"
                 />
-                <label htmlFor="checked1" className="ml-2 block text-sm lg:text-xs xl:text-sm text-gray-900 select-none xl:cursor-pointer">
+                <label htmlFor="checked1" className="ml-2 block text-sm lg:text-xs xl:text-sm text-gray-900 select-none md:cursor-pointer">
                     Очень срочный
                 </label>
             </div>

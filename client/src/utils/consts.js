@@ -1,6 +1,6 @@
 
-export const API_URL = "http://juliyastudioTailwind";
-// export const API_URL = "https://studio.kutovaya.ru";
+// export const API_URL = "http://juliyastudioTailwind";
+export const API_URL = "https://studio.kutovaya.ru";
 
 
 export const LOGIN_ROUTE = "/login";
