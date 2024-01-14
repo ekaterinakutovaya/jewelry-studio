@@ -87,7 +87,6 @@ export const Auth = () => {
                   Логин
                 </label>
                 <input
-                defaultValue="admin"
                   name="username"
                   type="text"
                   required
@@ -107,7 +106,6 @@ export const Auth = () => {
                   Пароль
                 </label>
                 <input
-                  defaultValue="admin"
                   name="password"
                   type="password"
                   autoComplete="current-password"
@@ -144,18 +142,18 @@ export const Auth = () => {
 
             </div>
 
-            <div className="text-sm">
-              {isLogin ? (
-                <p className="">
-                  Нет аккаунта?&nbsp;&nbsp;{" "}
-                  <Link className="font-medium text-purple-600 hover:text-purple-500" to={REGISTRATION_ROUTE}>Создать</Link>
-                </p>
-              ) : (
-                <p className="">
-                  Уже есть аккаунт?&nbsp;&nbsp; <Link className="font-medium text-purple-600 hover:text-purple-500" to={LOGIN_ROUTE}>Войти</Link>
-                </p>
-              )}
-            </div>
+            {/*<div className="text-sm">*/}
+            {/*  {isLogin ? (*/}
+            {/*    <p className="">*/}
+            {/*      Нет аккаунта?&nbsp;&nbsp;{" "}*/}
+            {/*      <Link className="font-medium text-purple-600 hover:text-purple-500" to={REGISTRATION_ROUTE}>Создать</Link>*/}
+            {/*    </p>*/}
+            {/*  ) : (*/}
+            {/*    <p className="">*/}
+            {/*      Уже есть аккаунт?&nbsp;&nbsp; <Link className="font-medium text-purple-600 hover:text-purple-500" to={LOGIN_ROUTE}>Войти</Link>*/}
+            {/*    </p>*/}
+            {/*  )}*/}
+            {/*</div>*/}
 
             <div className="">
               <div className="mt-2 h-4 text-center text-sm text-red-600">

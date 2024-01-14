@@ -64,6 +64,8 @@ class Image {
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+//        file_put_contents('image.json', json_encode($result));
+
         if ($result) {
             return $result;
         }

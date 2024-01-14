@@ -21,6 +21,7 @@ class Order
     public $metallColor;
     public $earParams;
     public $ringSize;
+    public $fastenerType;
     public $comments;
     public $hallmark;
     public $search_value;
@@ -52,6 +53,7 @@ class Order
                     metallColor = :metallColor,
                     earParams= :earParams,
                     ringSize = :ringSize,
+                    fastenerType = :fastenerType,
                     comments = :comments
                 ";
 
@@ -68,6 +70,7 @@ class Order
         $this->metallColor = htmlspecialchars(strip_tags($this->metallColor));
         $this->earParams = htmlspecialchars(strip_tags($this->earParams));
         $this->ringSize = htmlspecialchars(strip_tags($this->ringSize));
+        $this->fastenerType = htmlspecialchars(strip_tags($this->fastenerType));
         $this->comments = htmlspecialchars(strip_tags($this->comments));
 
 
@@ -88,6 +91,7 @@ class Order
         $stmt->bindParam(':metallColor', $this->metallColor);
         $stmt->bindParam(':earParams', $this->earParams);
         $stmt->bindParam(':ringSize', $this->ringSize);
+        $stmt->bindParam(':fastenerType', $this->fastenerType);
         $stmt->bindParam(':comments', $this->comments);
 
         if ($stmt->execute()) {
@@ -180,6 +184,7 @@ class Order
                             metallColor = :metallColor,
                             earParams= :earParams,
                             ringSize = :ringSize,
+                            fastenerType = :fastenerType,
                             comments = :comments
                     WHERE orderId = :orderId";
 
@@ -194,6 +199,7 @@ class Order
         $this->metallColor = htmlspecialchars(strip_tags($this->metallColor));
         $this->earParams = htmlspecialchars(strip_tags($this->earParams));
         $this->ringSize = htmlspecialchars(strip_tags($this->ringSize));
+        $this->fastenerType = htmlspecialchars(strip_tags($this->fastenerType));
         $this->comments = htmlspecialchars(strip_tags($this->comments));
 
 
@@ -215,6 +221,7 @@ class Order
         $stmt->bindParam(':metallColor', $this->metallColor);
         $stmt->bindParam(':earParams', $this->earParams);
         $stmt->bindParam(':ringSize', $this->ringSize);
+        $stmt->bindParam(':fastenerType', $this->fastenerType);
         $stmt->bindParam(':comments', $this->comments);
 
 

@@ -20,6 +20,7 @@ const createOrder = ({ dataToAdd }) => {
   formData.append("metallColor", dataToAdd.metallColor);
   formData.append("earParams", dataToAdd.earParams);
   formData.append("ringSize", dataToAdd.ringSize);
+  formData.append("fastenerType", dataToAdd.fastenerType);
   formData.append("comments", dataToAdd.comments);
   formData.append("isFileExists", +dataToAdd.isFileExists);
   formData.append("action", "create_order");
@@ -76,6 +77,7 @@ const updateOrder = data => {
   formData.append("metallColor", data.metallColor);
   formData.append("earParams", data.earParams);
   formData.append("ringSize", data.ringSize);
+  formData.append("fastenerType", data.fastenerType);
   formData.append("comments", data.comments);
   formData.append("action", "update_order");
 
@@ -118,9 +120,10 @@ const search = (searchValue) => {
 }
 
 const sendToCutting = (id, image) => {
+  console.log(image)
   const formData = new FormData();
   formData.append("orderId", +id);
-  formData.append("order_image", image);
+  formData.append("order_image", image.imageMin);
   formData.append("action", "send_to_cutting");
 
   return axios({

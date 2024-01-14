@@ -36,7 +36,7 @@ export const OrderForm = ({ order, images }) => {
   const { calculation } = useSelector(state => state.calculation);
   const files = useSelector(state => state.files.files.filter(file => file.orderId === order.orderId));
 
-  const [data, setData] = useState({ orderId: '', orderName: '', customer: '', receiveDate: defaultReceiveDate, handoverDate: null, priceStart: '', priceMiddle: '', priceFinal: '', metallColor: '', earParams: '', ringSize: '', comments: '' });
+  const [data, setData] = useState({ orderId: '', orderName: '', customer: '', receiveDate: defaultReceiveDate, handoverDate: null, priceStart: '', priceMiddle: '', priceFinal: '', hallmark: '', metallColor: '', earParams: '', ringSize: '', fastenerType: '', comments: '' });
   const [urgencyIndex, setUrgencyIndex] = useState(2);
   const [selectedCategory, setSelectedCategory] = useState(0);
   const [selectedStatus, setSelectedStatus] = useState(0);
@@ -125,15 +125,7 @@ export const OrderForm = ({ order, images }) => {
   const onSubmit = () => {
     setLoadingStatus(true);
     const { orderId } = data;
-
-    let hallmark = '';
-    calculation.map(item => {
-      if (item.hallmark !== '') {
-        hallmark = item.hallmark
-      }
-    })
-
-
+    
     const dataToAdd = {
       orderId: data.orderId || '',
       orderName: data.orderName || '',
@@ -149,10 +141,11 @@ export const OrderForm = ({ order, images }) => {
       statIndex: selectedStatus,
       statusName: status[selectedStatus].label,
       statusRate: status[selectedStatus].rate,
-      hallmark,
+      hallmark: data.hallmark || '',
       metallColor: data.metallColor || '',
       earParams: data.earParams || '',
       ringSize: data.ringSize || '',
+      fastenerType: data.fastenerType || '',
       comments: data.comments || ''
     }
 
@@ -225,6 +218,7 @@ export const OrderForm = ({ order, images }) => {
       function upload(index) {
         if (index >= filesToUpload.length) return;
         let file = filesToUpload[index];
+        console.log(file)
         dispatch(uploadFile({ file, orderId }))
           .then(() => {
             upload.call(this, index + 1);
@@ -410,16 +404,17 @@ export const OrderForm = ({ order, images }) => {
               </div>
 
               <div className="px-2 xl:px-4">
-                <label className="block text-[10px] xl:text-xs font-medium text-gray-700" htmlFor="">
-                  Торг $
-                </label>
-                <input
-                  type="text"
-                  className="block w-full py-3 md:py-2 mt-1 rounded-md shadow-sm border-gray-300 focus:border-purple-600 focus:ring-purple-600 text-sm text-center"
-                  value={data.priceMiddle || ''}
-                  onChange={e => setData({ ...data, priceMiddle: priceFormatter(e.target.value) })}
-                  disabled={isEditMode ? false : true}
-                />
+                {/*Enable for DEMO*/}
+                {/*<label className="block text-[10px] xl:text-xs font-medium text-gray-700" htmlFor="">*/}
+                {/*  Торг $*/}
+                {/*</label>*/}
+                {/*<input*/}
+                {/*  type="text"*/}
+                {/*  className="block w-full py-3 md:py-2 mt-1 rounded-md shadow-sm border-gray-300 focus:border-purple-600 focus:ring-purple-600 text-sm text-center"*/}
+                {/*  value={data.priceMiddle || ''}*/}
+                {/*  onChange={e => setData({ ...data, priceMiddle: priceFormatter(e.target.value) })}*/}
+                {/*  disabled={isEditMode ? false : true}*/}
+                {/*/>*/}
               </div>
               <div className="px-2 xl:px-4">
                 <label className="block text-[10px] xl:text-xs font-medium text-gray-700" htmlFor="">
@@ -523,6 +518,18 @@ export const OrderForm = ({ order, images }) => {
               disabled={isEditMode ? false : true}
             />
           </div>
+          <div className="pb-4 ">
+            <label htmlFor="" className="block text-xs font-medium text-gray-700" >
+              Проба
+            </label>
+            <input
+                type="text"
+                className="block mt-1 py-3 md:py-2 rounded-md shadow-sm border-gray-300 focus:border-purple-600 focus:ring-purple-600 text-sm"
+                value={data.hallmark || ''}
+                onChange={e => setData({ ...data, hallmark: e.target.value })}
+                disabled={isEditMode ? false : true}
+            />
+          </div>
           <div className="pb-4">
             <label htmlFor="" className="block text-xs font-medium text-gray-700" >
               Параметры уха
@@ -544,6 +551,18 @@ export const OrderForm = ({ order, images }) => {
               className="block mt-1 py-3 md:py-2 rounded-md shadow-sm border-gray-300 focus:border-purple-600 focus:ring-purple-600 text-sm"
               value={data.ringSize || ''}
               onChange={e => setData({ ...data, ringSize: e.target.value })}
+              disabled={isEditMode ? false : true}
+            />
+          </div>
+          <div className="pb-4">
+            <label htmlFor="" className="block text-xs font-medium text-gray-700" >
+              Вид швензы
+            </label>
+            <input
+              type="text"
+              className="block mt-1 py-3 md:py-2 rounded-md shadow-sm border-gray-300 focus:border-purple-600 focus:ring-purple-600 text-sm"
+              value={data.fastenerType || ''}
+              onChange={e => setData({ ...data, fastenerType: e.target.value })}
               disabled={isEditMode ? false : true}
             />
           </div>

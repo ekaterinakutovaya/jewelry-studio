@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import times from "@/assets/times.png";
 import noPhoto from "@/assets/nophoto.png";
 import { ImagesUploadInput } from "@/components";
+import {BASE_URL} from "@/utils/consts";
 
 
 export const Gallery = ({ imagesFromDB, setImagesToUpload, setImagesToDelete }) => {
@@ -27,8 +28,8 @@ export const Gallery = ({ imagesFromDB, setImagesToUpload, setImagesToDelete }) 
         setCarouselItems(prevState => [
           ...prevState,
           {
-            src: `${image.imageMin}`,
-            thumbnail: `${image.imageMin}`
+            src: `${BASE_URL+image.imageMin}`,
+            thumbnail: `${BASE_URL+image.imageMin}`
           }
         ]);
       });
@@ -45,8 +46,8 @@ export const Gallery = ({ imagesFromDB, setImagesToUpload, setImagesToDelete }) 
         setExistingImages(prevState => [
           ...prevState,
           {
-            src: `${image.imageMin}`,
-            thumbnail: `${image.imageMin}`
+            src: `${BASE_URL+image.imageMin}`,
+            thumbnail: `${BASE_URL+image.imageMin}`
           }
         ]);
       });
@@ -58,7 +59,6 @@ export const Gallery = ({ imagesFromDB, setImagesToUpload, setImagesToDelete }) 
   }, [isEditMode]);
 
   const readURI = e => {
-    console.log('test');
     if (e.target.files) {
       const images = Array.from(e.target.files);
       const filteredImages = images.filter(img => {        
@@ -164,7 +164,7 @@ export const Gallery = ({ imagesFromDB, setImagesToUpload, setImagesToDelete }) 
         </div>
       ) : (
         <Carousel
-          images={carouselItems}
+          images={carouselItems && carouselItems}
           className="rounded-[10px] overflow-hidden cursor-default bg-white border border-border-main"
           hasMediaButton={false}
           hasIndexBoard={false}
@@ -177,6 +177,11 @@ export const Gallery = ({ imagesFromDB, setImagesToUpload, setImagesToDelete }) 
           hasLeftButton={carouselItems.length > 1 ? "centerLeft" : false}
           hasRightButton={carouselItems.length > 1 ? "centerRight" : false}
         />
+        //   <div className="rounded-[10px] overflow-hidden cursor-default bg-white border border-border-main">
+        //     {imagesFromDB && (<img src={`${BASE_URL}/assets/uploads/images/orders/1704898817-7136857938-min.jpg`} alt=""/>)}
+        //     {/*<img src={`../${imagesFromDB && imagesFromDB[0].imageMin || ''}`} alt=""/>*/}
+        //   </div>
+          
       )}
 
     </div>

@@ -1,6 +1,9 @@
 
-// export const API_URL = "http://juliyastudioTailwind";
-export const API_URL = "https://studio.kutovaya.ru";
+export const API_URL = "http://studio/jewelry-studio/";
+export const BASE_URL = "http://localhost:5173/"
+// export const API_URL = "https://torvet.ru";
+// export const BASE_URL = "https://torvet.ru/"
+
 
 
 export const LOGIN_ROUTE = "/login";

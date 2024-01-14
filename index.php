@@ -19,11 +19,12 @@ $action = $_POST['action'];
 $id = (int)$_POST['orderId'];
 $imageId = $_POST['imageId'];
 
-$image_path = '/assets/uploads/images/';
-$files_path = '/assets/uploads/files/';
+$image_path = 'assets/uploads/images/';
+$files_path = 'assets/uploads/files/';
 
-// $dir = $_SERVER['DOCUMENT_ROOT'];
-$dir = 'D:/OpenServer/domains/JuliyaStudioTailwind/client/public/';
+$dir = $_SERVER['DOCUMENT_ROOT'] . '/';
+//$dir = 'D:/OpenServer/domains/JuliyaStudioTailwind/client/public/';
+//$dir = 'C:/OSPanel/domains/studio/jewelry-studio/client/public/';
 
 switch ($action) {
     case 'register':
@@ -109,6 +110,7 @@ switch ($action) {
         $order->metallColor = $_POST['metallColor'];
         $order->earParams = $_POST['earParams'];
         $order->ringSize = $_POST['ringSize'];
+        $order->fastenerType = $_POST['fastenerType'];
         $order->comments = $_POST['comments'];
         $order->isFileExists = $_POST['isFileExists'];
 
@@ -208,6 +210,7 @@ switch ($action) {
         $order->metallColor = $_POST['metallColor'];
         $order->earParams = $_POST['earParams'];
         $order->ringSize = $_POST['ringSize'];
+        $order->fastenerType = $_POST['fastenerType'];
         $order->comments = $_POST['comments'];
 
         if ($_POST['receiveDate'] == 'null' || $_POST['receiveDate'] == '') {
@@ -259,26 +262,26 @@ switch ($action) {
         $files = $file->fetchFilesByOrderID($id);
 
         /******* Disabled for demo *******************************************/
-        // if ($images) {
-        //     foreach ($images as $image) {
-        //         unlink($dir . $image['imageSrc']);
-        //         unlink($dir . $image['imageMin']);
-        //     }
-        // }
+         if ($images) {
+             foreach ($images as $image) {
+                 unlink($dir . $image['imageSrc']);
+                 unlink($dir . $image['imageMin']);
+             }
+         }
 
-        // if ($files) {
-        //     foreach ($files as $file) {
-        //         unlink($dir . $files_path . $file['fileUniqueName']);
-        //     }
-        // }
+         if ($files) {
+             foreach ($files as $file) {
+                 unlink($dir . $files_path . $file['fileUniqueName']);
+             }
+         }
 
-        // if ($order->deleteOrder($id)) {
-        //     http_response_code(200);
-        //     echo json_encode(array("message" => "Order has been deleted", "orderId" => $id));
-        // } else {
-        //     http_response_code(400);
-        //     echo json_encode(array("message" => "Order delete failed"));
-        // }
+         if ($order->deleteOrder($id)) {
+             http_response_code(200);
+             echo json_encode(array("message" => "Order has been deleted", "orderId" => $id));
+         } else {
+             http_response_code(400);
+             echo json_encode(array("message" => "Order delete failed"));
+         }
 
         http_response_code(200);
         echo json_encode(array("message" => "Order has been deleted", "orderId" => $id));
@@ -400,6 +403,8 @@ switch ($action) {
             'photo' => new CURLFile($image),
             'caption' => $txt,
         );
+
+        file_put_contents('tg.json', json_encode($post_fields));
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(

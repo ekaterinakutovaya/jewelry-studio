@@ -26,6 +26,7 @@ const Row = ({ order }) => {
   const orderImage = useSelector(state => state.images.images.find(image => image.orderId === order.orderId));
 
   const [image, setImage] = useState('');
+  const [tgImage, setTgImage] = useState('');
   const [handoverDate, setHandoverDate] = useState('');
   const [editOrderId, setEditOrderId] = useState(null);
   const [urgencyIndex, setUrgencyIndex] = useState(2);
@@ -55,6 +56,7 @@ const Row = ({ order }) => {
 
   useEffect(() => {
     if (orderImage) {
+      setTgImage(orderImage);
       setImage(`../${orderImage.imageMin}`)
     } else {
       setImage(noPhoto);
@@ -119,7 +121,7 @@ const Row = ({ order }) => {
   // Send order for cutting via Telegram bot and change order status
   const sendToCuttingHandler = () => {
     setSending(true);
-    ordersService.sendToCutting(order.orderId, image)
+    ordersService.sendToCutting(order.orderId, tgImage)
       .then(() => {
         dispatch(orderStatusUpdate(order.orderId));
 
